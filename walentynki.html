@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>Walentynka 💘</title>
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #ff4d6d, #ffb3c1);
+        font-family: Arial, sans-serif;
+        overflow: hidden;
+        text-align: center;
+    }
+    h1 { font-size: 48px; color: white; margin-bottom: 50px; }
+    .buttons { position: relative; width: 400px; height: 100px; }
+    button {
+        position: absolute;
+        top: 0;
+        padding: 15px 30px;
+        font-size: 24px;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    #yes { left: 0; background: #2ecc71; color: white; transform-origin: left center; }
+    #no { right: 0; background: #e74c3c; color: white; }
+    #final { display: none; font-size: 50px; color: white; }
+    .heart {
+        position: absolute;
+        color: red;
+        font-size: 30px;
+        animation: fly 3s linear infinite;
+    }
+    @keyframes fly {
+        from { transform: translateY(0); opacity: 1; }
+        to { transform: translateY(-600px); opacity: 0; }
+    }
+</style>
+</head>
+<body>
+<h1 id="question">Czy zostaniesz moją walentynką? 💖</h1>
+<div class="buttons" id="buttons">
+    <button id="yes">TAK</button>
+    <button id="no">NIE</button>
+</div>
+<div id="final">EZZZ ❤️😍</div>
+<script>
+const yes = document.getElementById("yes");
+const no = document.getElementById("no");
+const buttons = document.getElementById("buttons");
+const question = document.getElementById("question");
+const final = document.getElementById("final");
+
+let scale = 1;
+let noTexts = ["Nie","Na pewno?","Serio?","No weź","Błagam 😭","Zastanów się","Nie pierdol","Ostatnia szansa","XD"];
+let count = 0;
+
+no.addEventListener("click", () => {
+    scale += 0.3;
+    yes.style.transform = `scale(${scale})`;
+    if(count < noTexts.length){ no.textContent = noTexts[count]; } 
+    else { no.textContent = "NIE MA ODWROTU 😈"; }
+    count++;
+    if(scale > 3.5){ no.style.display = "none"; }
+});
+
+yes.addEventListener("click", () => {
+    buttons.style.display = "none";
+    question.style.display = "none";
+    final.style.display = "block";
+    setInterval(() => {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        heart.style.bottom = "0px";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 3000);
+    }, 200);
+});
+</script>
+</body>
+</html>
